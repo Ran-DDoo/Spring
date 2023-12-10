@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <script src="/js/jquery-3.7.1.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+
+</head>
+<body>
+<div class="container mt-5">
+
+    <h1 class="text-center">회원가입</h1>
+
+    <section>
+        <div class="row mt-3">
+            <div class="col-sm-4 mx-auto">
+                <form action="/member/membership" method="post">
+                    <div class="mt-3">
+                        <label class="form-label" for="uId">이메일</label>
+                        <input class="form-control" id="uId" name="uId" placeholder="이메일을 입력하세요" type="text">
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label" for="uPw">비밀번호*</label>
+                        <input class="form-control" id="uPw" name="uPw" placeholder="비밀번호를 입력하세요" type="password">
+                    </div>
+                    <div class="mt-3">
+                        <label class="form-label" for="uName">이름*</label>
+                        <input class="form-control" id="uName" name="uName" placeholder="이름을 입력하세요" type="text">
+                    </div>
+                    <div class="mt-5 d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">가입</button>
+                        <button class="btn btn-secondary" type="reset">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
