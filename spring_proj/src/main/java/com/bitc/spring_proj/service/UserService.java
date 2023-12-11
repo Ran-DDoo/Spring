@@ -2,6 +2,7 @@ package com.bitc.spring_proj.service;
 
 
 import com.bitc.spring_proj.dto.UserDTO;
+import org.apache.catalina.User;
 
 public interface UserService {
     void insertUser(UserDTO user) throws Exception;
@@ -11,4 +12,5 @@ public interface UserService {
     int isUserInfo(String uId, String uPw) throws Exception;
 
     UserDTO getUserInfo(String uId) throws Exception;
+
 }

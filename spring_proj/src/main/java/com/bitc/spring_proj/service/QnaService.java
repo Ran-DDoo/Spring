@@ -1,12 +1,9 @@
-package com.bitc.spring_proj.mapper;
+package com.bitc.spring_proj.service;
 
 import com.bitc.spring_proj.dto.QnaDTO;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface BoardMapper {
+public interface QnaService {
     List<QnaDTO> userQna(String qcreateid) throws Exception;
 }
-

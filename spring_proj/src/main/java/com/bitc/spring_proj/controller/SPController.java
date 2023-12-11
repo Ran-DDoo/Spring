@@ -1,8 +1,14 @@
 package com.bitc.spring_proj.controller;
 
+<<<<<<< HEAD
 import com.bitc.spring_proj.dto.FestaItemDTO;
 import com.bitc.spring_proj.dto.UserDTO;
 import com.bitc.spring_proj.service.ProjService;
+=======
+import com.bitc.spring_proj.dto.QnaDTO;
+import com.bitc.spring_proj.dto.UserDTO;
+import com.bitc.spring_proj.service.QnaService;
+>>>>>>> mainksjbackup
 import com.bitc.spring_proj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,19 +30,49 @@ public class SPController {
     private UserService userService;
 
     @Autowired
+<<<<<<< HEAD
     private ProjService projService;
 
     @Value("AUIh5hIEboiMc%2FZLcDpczV%2BCf7FPo1e8CHSo0kb8ejd5IWHsX7AhgdcUzzGUsZgzoBZIu0iN1eA82qvQq%2FbLlA%3D%3D")
     private String serviceMyKey;
+=======
+    private QnaService qnaService;
+>>>>>>> mainksjbackup
 
     @RequestMapping("/festival/pj_main")
     public String pj_main() throws Exception {
         return "festival/pj_main";
     }
 
+<<<<<<< HEAD
     @GetMapping("/festival/f_list")
     public String f_list() throws Exception {
         return "festival/f_list";
+=======
+    @GetMapping ("/Mypage/mypage")
+    public ModelAndView mypage(HttpServletRequest req) throws Exception{
+        ModelAndView mv = new ModelAndView("Mypage/mypage");
+
+        HttpSession session = req.getSession();
+        // 세션에 저장된 내용 가져오기
+        String uId = (String) session.getAttribute("uId");
+        String uName = (String) session.getAttribute("uName");
+
+        if (uId == null || uName == null) {
+            // null일시 로그인페이지로이동
+            mv.setViewName("redirect:/login.login");
+        }
+        // mv.addObject(회원 정보);
+        mv.addObject("uId", uId);
+        mv.addObject("uName", uName);
+
+        // 서비스를 사용하여 mapper로 해당 사용자의 게시물 목록 가져오기
+        // mv.addObject(qna목록);
+        // mv.addObject(review목록);
+
+
+        return mv;
+>>>>>>> mainksjbackup
     }
 
     @GetMapping("/festival/f_detail")
@@ -122,6 +159,17 @@ public class SPController {
         else{
             return "login/login";
         }
+    }
+
+
+    @RequestMapping("/mypage.do")
+    public ModelAndView boardDetail(@RequestParam("qcreateid") String qcreateid) throws Exception {
+        ModelAndView mv = new ModelAndView("Mypage/mypage");
+
+        List<QnaDTO> qnaList = qnaService.userQna(qcreateid);
+        mv.addObject("qnaList", qnaList);
+
+        return mv;
     }
 
 
