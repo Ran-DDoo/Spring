@@ -1,15 +1,19 @@
 package com.bitc.spring_proj.controller;
 
+import com.bitc.spring_proj.dto.FestaItemDTO;
 import com.bitc.spring_proj.dto.UserDTO;
+import com.bitc.spring_proj.service.ProjService;
 import com.bitc.spring_proj.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/Proj")
@@ -18,12 +22,18 @@ public class SPController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ProjService projService;
+
+    @Value("AUIh5hIEboiMc%2FZLcDpczV%2BCf7FPo1e8CHSo0kb8ejd5IWHsX7AhgdcUzzGUsZgzoBZIu0iN1eA82qvQq%2FbLlA%3D%3D")
+    private String serviceMyKey;
+
     @RequestMapping("/festival/pj_main")
     public String pj_main() throws Exception {
         return "festival/pj_main";
     }
 
-    @RequestMapping("/festival/f_list")
+    @GetMapping("/festival/f_list")
     public String f_list() throws Exception {
         return "festival/f_list";
     }
@@ -31,6 +41,21 @@ public class SPController {
     @GetMapping("/festival/f_detail")
     public String f_detail() throws Exception {
         return "festival/f_detail";
+    }
+
+    @ResponseBody
+    @PostMapping("/festival/f_list")
+    public Object FestaList(@RequestParam("pageNo") int pageNo, @RequestParam("numOfRows") int numOfRows) throws Exception{
+        String url = "https://apis.data.go.kr/6260000/FestivalService/getFestivalKr";
+        String optKey = "?serviceKey=";
+        String opt1 = "&pageNo=";
+        String opt2 = "&numOfRows=";
+        String opt3 = "&resultType=JSON";
+        String serviceUrl = url + optKey + serviceMyKey + opt1 + pageNo + opt2 + numOfRows + opt3;
+
+        List<FestaItemDTO> festaList = projService.FestaList(serviceUrl);
+
+        return festaList;
     }
 
     @GetMapping("/member/membership")

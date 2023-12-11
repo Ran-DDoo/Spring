@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class FestaHeaderDTO {
-    private String resultCode;
-    private String resultMsg;
+    private String code;
+    private String message;
 }

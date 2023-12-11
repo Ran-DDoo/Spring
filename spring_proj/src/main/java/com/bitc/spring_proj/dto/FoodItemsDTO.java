@@ -2,7 +2,9 @@ package com.bitc.spring_proj.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class FoodItemsDTO {
-    private FoodItemDTO item;
+    private List<FoodItemDTO> itemList;
 }

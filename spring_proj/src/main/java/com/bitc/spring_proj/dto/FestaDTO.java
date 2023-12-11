@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class FestaDTO {
-    private FestaResDTO response;
+    private FestaKrDTO getFestivalKr;
 }

@@ -10,15 +10,91 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#btn-list-load").on("click", function () {
+                const pageNo = $("#page-no").val();
+                const numOfRows = $("#num-of-rows").val();
+                const datas = {pageNo: pageNo, numOfRows: numOfRows};
+
+                $.ajax({
+                    url: "/Proj/festival/f_list",
+                    type: "POST",
+                    data: datas,
+                    success: function (data) {
+                        const tbody = $("#festa-list > tbody");
+                        tbody.empty();
+
+                        let tag = "";
+
+                        if (data.length > 0) {
+                            for (let i = 0; i < data.length; i++) {
+                                tag += "<tr>";
+                                tag += "<td>" + data[i].MAIN_TITLE + "</td>";
+                                tag += "<td>" + data[i].TITLE + "</td>";
+                                tag += "<td>" + data[i].ADDR1 + "</td>";
+                                tag += "<td>" + data[i].HOMEPAGE_URL + "</td>";
+                                tag += "</tr>";
+                            }
+                        } else {
+                            tag += "<tr>";
+                            tag += "<td colspan='5' class='text-center'>내용이 없습니다.</td>";
+                            tag += "</tr>";
+                        }
+                        tbody.append(tag);
+                    },
+                    error: function () {
+                        alert("연결 실패");
+                    }
+                });
+            });
+        });
+    </script>
+
 </head>
 <body>
 <div th:replace="~{/layout/header :: header-basic}"></div>
-<main>
-    <div class="container mt-5">
-        <h2 class="text-center">부산 축제 정보</h2>
 
+<div class="container mt-5">
+    <h2 class="text-center">부산 축제 정보</h2>
+    <table class="table table-hover table-striped" id="festa-list">
+        <thead>
+        <tr class="text-center">
+            <th>콘텐츠명</th>
+            <th>제목</th>
+            <th>주소</th>
+            <th>홈페이지</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-3">
+    <div class="d-flex justify-content-center">
+        <div class="row g-2">
+            <div class="col-sm">
+                <div class="input-group">
+                    <span class="input-group-text">페이지 : </span>
+                    <input type="number" class="form-control" id="page-no" value="1" min="1" max="4">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="input-group">
+                    <span class="input-group-text">출력 수 : </span>
+                    <input type="number" class="form-control" id="num-of-rows" value="10" min="5">
+                </div>
+            </div>
+            <div style=" text-align: center;">
+                <button type="button" class="btn btn-primary" id="btn-list-load" style="width: 100px;">확인</button>
+            </div>
+        </div>
     </div>
-</main>
+</div>
+
 <div th:replace="~{/layout/footer :: footer}"></div>
 </body>
 </html>
