@@ -23,6 +23,11 @@ public class SPController {
         return "festival/pj_main";
     }
 
+    @RequestMapping("/festival/f_list")
+    public String f_list() throws Exception {
+        return "festival/f_list";
+    }
+
     @GetMapping("/festival/f_detail")
     public String f_detail() throws Exception {
         return "festival/f_detail";
